@@ -14,7 +14,8 @@ module McpZero
 
     def tools
 
-      [ McpZero::HelloTool ]
+      #[ McpZero::HelloTool ]
+      []
     end
 
     def prompts
@@ -31,17 +32,17 @@ module McpZero
       properties: {
         name: { type: 'string' }
       },
-      required: %w[ name ]
-    )
+      required: %w[ name ])
 
-    class << self
+    annotations(
+      read_only_hint: true,
+      destructive_hint: false)
 
-      def call(name:, server_context:)
+    def self.call(name:, server_context:)
 
-        MCP::Tool::Response.new([ {
-          type: 'text',
-          text: "Hello from McpZero to #{name}" } ])
-      end
+      MCP::Tool::Response.new([ {
+        type: 'text',
+        text: "Hello from McpZero to #{name}" } ])
     end
   end
 end

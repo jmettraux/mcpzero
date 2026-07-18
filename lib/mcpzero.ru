@@ -8,7 +8,9 @@
 #require 'pp'
 require 'rack'
 
-#$: << 'lib'
+$: << 'lib'
+
+require 'mcpzero'
 
 STDOUT.sync = true
 STDERR.sync = true
@@ -17,6 +19,13 @@ use Rack::Runtime
   #
   # Sets X-Runtime response header...
 
-run lambda { |env|
-  [ 200, { 'Content-Type' => 'text/plain' }, %w[ MCP Zero ] ] }
+server = MCP::Server.new(
+  name: McpZero.name,
+  version: McpZero.version,
+  tools: McpZero.tools,
+  prompts: McpZero.prompts)
+
+#run lambda { |env|
+#  [ 200, { 'Content-Type' => 'text/plain' }, %w[ MCP Zero ] ] }
+run MCP::Server::Transports::StreamableHTTPTransport.new(server)
 

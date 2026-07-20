@@ -14,8 +14,8 @@ module McpZero
 
     def tools
 
-      #[ McpZero::HelloTool ]
-      []
+      [ McpZero::HelloTool ]
+      #[]
     end
 
     def prompts
